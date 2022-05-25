@@ -5,6 +5,8 @@
 ### DDL Script
 
 ```roomsql
+CREATE SCHEMA IF NOT EXISTS assignment_w2_wed;
+USE assignment_w2_wed;
 DROP TABLE IF EXISTS employees;
 
 CREATE TABLE employees (
