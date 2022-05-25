@@ -28,8 +28,8 @@ SELECT MAX(salary) - MIN(salary) AS wage_gap
 	FROM employees;
 
 -- 9
-SELECT manager_id, salary FROM employees
-	WHERE salary = (SELECT MIN(salary) FROM employees);
+SELECT manager_id, MIN(salary) FROM employees
+	GROUP BY manager_id;
 
 -- 10
 SELECT department_id, SUM(salary)
