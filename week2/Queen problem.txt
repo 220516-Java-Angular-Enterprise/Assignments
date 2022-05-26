@@ -1,0 +1,119 @@
+public static int queensAttack(int n, int k, int r_q, int c_q, List<List<Integer>> obstacles) {
+        int out = 0; //is the total positions the queen can move to
+        int minus = 0;
+        int row = n-1;
+        int col = n-1;
+        int d1 = Math.min(n-r_q,n-c_q);
+        int d2 = Math.min(n-r_q,c_q-1);
+        int d3 = Math.min(r_q-1, c_q-1);
+        int d4 = Math.min(r_q-1, n-c_q);
+        
+        
+        int od1 = 0;
+        int od2 = 0;
+        int od3 = 0;
+        int od4 = 0;
+        
+        int or1 = 0;
+        int or2 = 0;
+        int oc1 = 0;
+        int oc2 = 0;
+        
+        
+        
+        System.out.println(row +" "+ col+ " "+ d1 +" "+ d2 +" "+ d3+ " " + d4);
+        out = row + col + d1+ d2+ d3+ d4;
+        
+        for(List<Integer> ob: obstacles){
+            int oRow = ob.get(0);
+            int oCol = ob.get(1);
+            
+            if(oRow == r_q){
+                if(oCol > c_q){
+                    minus = Math.abs(oCol-n) + 1;
+                    if(minus <= or1){
+                        minus = 0;
+                    }else {
+                        or1 = minus;
+                    }
+                    
+                }else{
+                    minus = oCol;
+                    if(minus <= or2){
+                        minus = 0;
+                    }else {
+                        or2 = minus;
+                    }
+                }
+            }
+            if(oCol == c_q){
+                if(oRow > r_q){
+                    minus = Math.abs(oRow-n) + 1;
+                    if(minus <= oc1){
+                        minus = 0;
+                    }else {
+                        oc1 = minus;
+                    }
+                }else{
+                    minus = oRow;
+                    if(minus <= oc2){
+                        minus = 0;
+                    }else {
+                        oc2 = minus;
+                    }
+                }
+            }
+            
+            int c1 = oCol - c_q;
+            int c2 = oRow - r_q;
+            
+            if(Math.abs(c1) == Math.abs(c2)){
+                if(c1 > 0 && c2 > 0){
+                    minus = Math.min(n-oCol +1,n-oRow +1);
+                    if(minus <= od1){
+                        minus = 0;
+                    }else {
+                        od1 = minus;
+                    }
+                }
+                if(c1 < 0 && c2 > 0){
+                    minus = Math.min(oCol, n-oRow +1);
+                    if(minus <= od2){
+                        minus = 0;
+                    }else {
+                        od2 = minus;
+                    }
+                }
+                if(c1 > 0 && c2 < 0){
+                    minus = Math.min(n-oCol +1, oRow);
+                    if(minus <= od3){
+                        minus = 0;
+                    }else {
+                        od3 = minus;
+                    }
+                }
+                if(c1 < 0 && c2 < 0){
+                    minus = Math.min(oCol, oRow);
+                    if(minus <= od4){
+                        minus = 0;
+                    }else {
+                        od4 = minus;
+                    }
+                }
+                //System.out.println(od1 + " " + od2 + " " +  od3 + " " +  od4);
+            }
+            
+            minus = 0;
+        }
+        
+        System.out.println(or1 + " " + or2 + " " + oc1 + " " + oc2 + " " + od1 + " " + od2 + " " +  od3 + " " +  od4);
+        out -= od1 + od2 + od3 + od4 + or1 + or2 + oc1 + oc2;
+        
+        //need to account for blocker by accounting for the space they block
+        
+        
+        return out;
+
+    }
+
+}
